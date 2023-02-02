@@ -8,7 +8,6 @@ pipeline {
     node {
       label 'docker'
     }
-
   }
   stages {
     stage('Git') {
@@ -19,18 +18,15 @@ pipeline {
 stage('Build Stage') {
     steps {
         script {
-        dockerImage = docker.build(registry)
-
+            dockerImage = docker.build(registry)
         }
     }
 }
-
 stage('Deploy Stage') {
     steps {
         script {
         docker.withRegistry('', registryCredentials) {
             dockerImage.push()
-
             }
         }
     }
